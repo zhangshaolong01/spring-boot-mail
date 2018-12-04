@@ -1,0 +1,153 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.itstyle.mail</groupId>
+  <artifactId>spring-boot-mail</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>spring-boot-mail</name>
+  <url>http://maven.apache.org</url>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
+  <parent>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot-starter-parent</artifactId>
+	    <version>1.5.9.RELEASE</version>
+	    <relativePath/>
+  </parent>
+  <dependencies>
+        <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+        <!-- 实现web功能 -->
+		<dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-web</artifactId>
+	    </dependency>
+	    <!-- 单元测试 -->
+	    <dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!-- 模版 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<!-- 网页解析 -->
+		 <dependency>
+			<groupId>net.sourceforge.nekohtml</groupId>
+			<artifactId>nekohtml</artifactId>
+		</dependency>
+		<!-- 简化现有的持久化开发工作和整合ORM技术 -->
+		<!-- Spring Data JPA是Spring Data系列的一部分，可以轻松实现基于JPA的存储库。
+			  该模块处理对基于JPA的数据访问层的增强的支持。
+		         这使得使用数据访问技术构建Spring供电的应用程序变得更加容易 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<!-- mysql驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- spring-boot-starter-redis -->
+		<!-- springboot集成redis -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-redis</artifactId>
+		    <version>1.4.7.RELEASE</version>
+		</dependency>
+	    <!-- email -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+        <!-- thymeleaf 模版 -->
+        <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+	    <!-- freemarker 模版 -->
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-freemarker</artifactId>
+		</dependency>
+		<!-- dubbo 替换  dubbox-->
+		<!-- SOA服务化治理方案的核心框架 -->
+		<!-- RPC 实现服务的输出和输入功能 -->
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>dubbo</artifactId>
+		    <version>2.6.2</version>
+		</dependency>
+		<dependency>
+	        <groupId>com.alibaba.spring.boot</groupId>
+	        <artifactId>dubbo-spring-boot-starter</artifactId>
+	        <version>2.0.0</version>
+        </dependency>
+        <!-- Zookeeper客户端 -->
+		<dependency>
+		    <groupId>org.apache.curator</groupId>
+		    <artifactId>curator-recipes</artifactId>
+		    <version>4.0.1</version>
+		</dependency>
+		<!-- javassist 字节码类库 -->
+		<dependency>
+		    <groupId>org.javassist</groupId>
+		    <artifactId>javassist</artifactId>
+		</dependency>
+		<!-- json-lib -->
+		<dependency>
+		    <groupId>net.sf.json-lib</groupId>
+		    <artifactId>json-lib</artifactId>
+		    <version>2.4</version>
+		    <classifier>jdk15</classifier>
+		</dependency>
+		 <!-- 构建Restful API -->  
+        <dependency>  
+            <groupId>io.springfox</groupId>  
+            <artifactId>springfox-swagger2</artifactId>  
+            <version>2.7.0</version>  
+        </dependency>  
+        <dependency>  
+            <groupId>io.springfox</groupId>  
+            <artifactId>springfox-swagger-ui</artifactId>  
+            <version>2.7.0</version>  
+        </dependency>
+        <!-- activemq -->
+        <!-- Java消息队列 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+		</dependency>
+  </dependencies>
+  <build>
+        <finalName>spring-boot-mail</finalName>
+		<plugins>
+		    <!-- 打包项目 mvn clean package -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			     <dependencies>
+				   <!--  mvn spring-boot:run 热部署启动 -->
+                    <dependency>
+                        <groupId>org.springframework</groupId>
+                        <artifactId>springloaded</artifactId>
+                        <version>1.2.7.RELEASE</version>
+                    </dependency>
+                </dependencies>
+			</plugin>
+		</plugins>
+	</build>
+</project>
