@@ -11,6 +11,7 @@ package com.itstyle.mail.web;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import io.swagger.annotations.Api;
 
@@ -32,6 +33,17 @@ import io.swagger.annotations.Api;
 @Api(tags = "通用访问拦截匹配")
 @Controller
 public class IndexController {
+	
+	/**
+	 * 页面跳转
+	 * @param module
+	 * @param url
+	 * @return
+	 */
+	@RequestMapping("/")
+	public String page() {
+		return "main";
+	}
 	
 	/**
 	 * 页面跳转
