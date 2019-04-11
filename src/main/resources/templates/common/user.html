@@ -42,48 +42,31 @@ var vm = new Vue({
 		user :{
 			subject:""
 		},
-		tableTitle : [ {
-			key : "receiveEmail",
-			title : "账号",
-			width : "",
-			}, {
-			key : "subject",
-			title : "手机号",
-			width : ""
-		}, {
-			key : "content",
-			title : "备注",
-			width : "",
-        	render : function(h, params){
-				var functionList = [];
-				var see = h('Button', {
-					props : {icon:"ios-search",type : 'primary',size : 'small'},
-					attrs: {id: 'foo'},
-					style : {width:'',marginLeft:'-10px',marginRight:'-10px',marginBottom:'1px',marginTop:'1px'},
-					on : {
-						click : function() {
-							vm.see();
-							vm.msg=params.row.content;
-						}
-					
-					}
-				}, '查看');
-				functionList.push(see);
-				// 返回方法集合
-				return h('div', functionList);
-		},
-		}, {
-			key : "template",
-			title : "模板",
-			width : ""
-		}, {
-			key : "sendTime",
-			title : "最后登录时间",
-			width : "",
-			render: function (h, params) {  
-	            return h('div',new Date(this.row.sendTime).Format('yyyy-MM-dd'));
-	        }  
-		},],
+		tableTitle : [ 
+			{
+				key : "accountType",
+				title : "账号类型",
+				width : "",
+			}, 
+			{
+				key : "userAccount",
+				title : "账号",
+				width : ""
+			}, 
+			{
+				key : "content",
+				title : "登录次数",
+				width : ""
+			},
+			{
+				key : "sendTime",
+				title : "最后登录时间",
+				width : "",
+				render: function (h, params) {  
+		            return h('div',new Date(this.row.sendTime).Format('yyyy-MM-dd'));
+		        }  
+			}
+		],
 		consultData : [
 
 		]
