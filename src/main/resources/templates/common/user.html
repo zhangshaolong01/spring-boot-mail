@@ -26,10 +26,11 @@
 			<i-input placeholder="输入用户账号" v-model="user.userAccount" style="width: 200px"></i-input>
 			</template>
 			<i-button type="primary"  icon="ios-search" @click="list()" >查询</i-button>
-			<i-button type="primary"  icon="refresh" @click="reload()" >清空</i-button>
+			<i-button type="primary"  icon="refresh"  @click="reload()" >清空</i-button>
+			<i-button type="primary"  icon="refresh" @click="add()" >新增</i-button>
 		</div>
 		
-		<template> 
+		<template>
 			<i-table border  :content="self" :columns="tableTitle" :data="consultData"></i-table>
 		 	<br>
 			<!-- <Page :current="mail.pageNumber" :total="total" :page-size="mail.pageSize"  @on-change="changePage" @on-page-size-change="changePageSize" show-elevator show-sizer show-total></Page> --> 
@@ -85,16 +86,16 @@ var vm = new Vue({
 		reload : function(type) {
 			this.list();
 		},
-		see: function(){
+		add: function(){
 			dialogOpen({
-				title: '内容',
-				url: '/email/show.html?_' + $.now(),
+				title: '新增用户',
+				url: 'common/addUser.shtml?_' + $.now(),
 				width: '850px',
 				height: '550px',
 				btn: null,
 				scroll : true,
 				success: function(iframeId){
-					top.frames[iframeId].document.write(vm.msg);
+					//top.frames[iframeId].document.write(vm.msg);
 				},
 			});
 		},
