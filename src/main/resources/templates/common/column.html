@@ -23,7 +23,7 @@
 <div id="app" v-cloak>
        <div style="margin-bottom: 6px">
 			<template >
-			<i-input placeholder="输入用户账号" v-model="user.userAccount" style="width: 200px"></i-input>
+			<i-input placeholder="输入用户账号" v-model="column.columnName" style="width: 200px"></i-input>
 			</template>
 			<i-button type="primary"  icon="ios-search" @click="list()" >查询</i-button>
 			<i-button type="primary"  icon="refresh"  @click="reload()" >清空</i-button>
@@ -33,38 +33,42 @@
 		<template>
 			<i-table border  :content="self" :columns="tableTitle" :data="consultData"></i-table>
 		 	<br>
-			<Page :current="user.pageNumber" :total="total" :page-size="user.pageSize"  @on-change="changePage" @on-page-size-change="changePageSize" show-elevator show-sizer show-total></Page>
+			<Page :current="column.pageNumber" :total="total" :page-size="column.pageSize"  @on-change="changePage" @on-page-size-change="changePageSize" show-elevator show-sizer show-total></Page>
 		</template>
 </div>
 <script type="text/javascript">
 var vm = new Vue({
 	el : '#app',
 	data : {
-		user :{
-			userAccount:"",
+		column :{
+			tableName:"",
+			columnName:"",
+			dataType:"",
+			length:"",
+			columnComment:"",
 			pageNumber:1,
 			pageSize:10
 		},
 		total:100,
 		tableTitle : [
 			{
-				key : "accountType",
-				title : "账号类型",
+				key : "tableName",
+				title : "表名",
 				width : "",
 			}, 
 			{
-				key : "userAccount",
-				title : "账号",
+				key : "columnName",
+				title : "列名",
 				width : ""
 			}, 
 			{
-				key : "content",
-				title : "登录次数",
+				key : "dataType",
+				title : "类型",
 				width : ""
 			},
 			{
-				key : "sendTime",
-				title : "最后登录时间",
+				key : "length",
+				title : "长度",
 				width : "",
 				render: function (h, params) {  
 		            return h('div',new Date(this.row.sendTime).Format('yyyy-MM-dd'));
@@ -78,7 +82,7 @@ var vm = new Vue({
 	methods : {
 		list : function() {
 			 $.ajax({
-				url : '../user/list?_' + $.now(),
+				url : '../column/list?_' + $.now(),
 				type : "post",
 				param : this.mail,
 				success : function(result) {
@@ -92,7 +96,7 @@ var vm = new Vue({
 		add: function(){
 			dialogOpen({
 				title: '新增用户',
-				url: 'common/addUser.shtml?_' + $.now(),
+				url: 'common/addColumn.shtml?_' + $.now(),
 				width: '850px',
 				height: '550px',
 				btn: null,

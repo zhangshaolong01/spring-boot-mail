@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.itstyle.mail.common.model.Result;
-import com.itstyle.mail.entity.User;
-import com.itstyle.mail.repository.UserRepository;
-import com.itstyle.mail.service.IUserService;
+import com.itstyle.mail.entity.Columns;
+import com.itstyle.mail.repository.ColumnRepository;
+import com.itstyle.mail.service.IColumnService;
 
 /**   
 * Copyright: Copyright (c) 2018 LanRu-Caifu
@@ -38,20 +38,20 @@ import com.itstyle.mail.service.IUserService;
 */
 @Service
 @Component
-public class UserServiceImpl implements IUserService {
-	private static final Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+public class ColumnServiceImpl implements IColumnService {
+	private static final Logger logger = LoggerFactory.getLogger(ColumnServiceImpl.class);
 	@Autowired
-	private UserRepository userRepository;
+	private ColumnRepository columnRepository;
 
 	@Override
-	public Result listUser(User user) {
-		List<User> list =  userRepository.findAll();
+	public Result listColumn(Columns column) {
+		List<Columns> list =  columnRepository.findAll();
 		return Result.ok(list);
 	}
 
 	@Override
-	public Result addUser(User user) {
-		user =  userRepository.save(user);
-		return Result.ok(user);
+	public Result addColumn(Columns column) {
+		column =  columnRepository.save(column);
+		return Result.ok(column);
 	}
 }

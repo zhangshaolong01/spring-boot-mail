@@ -23,15 +23,38 @@
 <div id="app" v-cloak>
     <div>
         Slots：
-        <i-input placeholder="Enter name" icon="ios-contact" style="width: auto">
+        <i-input placeholder="Enter type" :value.sync="user.accountType" icon="ios-contact" style="width: auto">
         </i-input>
-        <i-input placeholder="Enter text" icon="ios-search" style="width: auto">
+        <i-input placeholder="Enter name" :value.sync="user.userAccount" icon="ios-contact" style="width: auto">
         </i-input>
+        <i-input placeholder="Enter password" :value.sync="user.password" icon="ios-search" style="width: auto">
+        </i-input>
+        <i-button type="primary" @click="add()">保存</i-button>
     </div>
 </div>
 <script type="text/javascript">
 var vm = new Vue({
-	el : '#app'
+	el : '#app',
+	data : {
+		user :{
+			accountType:"2",
+			userAccount:"2",
+			password:"2"
+		}
+	},
+	methods : {
+		add : function() {
+			console.log(this.user);
+			 $.ajax({
+				url : '../user/add?_' + $.now(),
+				type : "post",
+				data : this.user,
+				success : function(result) {
+					vm.consultData = result.msg;
+				}
+			});
+		}
+	}
 })
 </script>
 </body>

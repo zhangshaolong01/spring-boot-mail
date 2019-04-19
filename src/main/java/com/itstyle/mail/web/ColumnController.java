@@ -13,9 +13,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.itstyle.mail.common.model.Email;
 import com.itstyle.mail.common.model.Result;
-import com.itstyle.mail.service.IMailService;
+import com.itstyle.mail.entity.Columns;
+import com.itstyle.mail.service.IColumnService;
 
 import io.swagger.annotations.Api;
 
@@ -34,27 +34,21 @@ import io.swagger.annotations.Api;
 *---------------------------------------------------------*
 * 2018年12月2日     Administrator           v1.0.0               修改原因
 */
-@Api(tags = "邮件管理")
+@Api(tags = "列管理")
 @RestController
-@RequestMapping("/mail")
-public class mailController {
+@RequestMapping("/column")
+public class ColumnController {
 	
 	@Autowired
-	private IMailService mailService;
-	
-	@PostMapping("send")
-	public Result send(Email mail) {
-		try {
-			mailService.sendFreemarker(mail);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return  Result.error();
-		}
-		return  Result.ok();
-	}
+	private IColumnService columnService;
 	
 	@PostMapping("list")
-	public Result list(Email mail) {
-		return mailService.listMail(mail);
+	public Result list(Columns column) {
+		return columnService.listColumn(column);
+	}
+	
+	@PostMapping("add")
+	public Result add(Columns column) {
+		return columnService.addColumn(column);
 	}
 }

@@ -29,4 +29,6 @@ import com.itstyle.mail.entity.User;
 public interface IUserService {
 
 	public Result listUser(User user);
+
+	public Result addUser(User user);
 }

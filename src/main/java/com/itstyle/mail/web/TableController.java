@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.itstyle.mail.common.model.Result;
-import com.itstyle.mail.entity.User;
-import com.itstyle.mail.service.IUserService;
+import com.itstyle.mail.entity.Tables;
+import com.itstyle.mail.service.ITableService;
 
 import io.swagger.annotations.Api;
 
@@ -36,14 +36,19 @@ import io.swagger.annotations.Api;
 */
 @Api(tags = "用户管理")
 @RestController
-@RequestMapping("/user")
-public class userController {
+@RequestMapping("/table")
+public class TableController {
 	
 	@Autowired
-	private IUserService userService;
+	private ITableService tableService;
 	
 	@PostMapping("list")
-	public Result list(User user) {
-		return userService.listUser(user);
+	public Result list(Tables table) {
+		return tableService.listTable(table);
+	}
+	
+	@PostMapping("add")
+	public Result add(Tables table) {
+		return tableService.addTable(table);
 	}
 }
