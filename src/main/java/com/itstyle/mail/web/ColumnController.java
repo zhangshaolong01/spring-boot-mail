@@ -42,9 +42,14 @@ public class ColumnController {
 	@Autowired
 	private IColumnService columnService;
 	
+	@PostMapping("listForPage")
+	public Result listForPage(Columns column, int pageNumber, int pageSize) {
+		return columnService.listForPage(column, pageNumber, pageSize);
+	}
+	
 	@PostMapping("list")
 	public Result list(Columns column) {
-		return columnService.listColumn(column);
+		return columnService.list(column);
 	}
 	
 	@PostMapping("add")

@@ -12,8 +12,10 @@ import com.itstyle.mail.common.model.Result;
 import com.itstyle.mail.entity.Columns;
 
 public interface IColumnService {
+	public Result listForPage(Columns column, int pageNumber, int pageSize);
 
-	public Result listColumn(Columns column);
+	public Result list(Columns column);
 
 	public Result addColumn(Columns column);
+
 }

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户列表 - 科帮网</title>
+    <meta name="author" content="小柒2012" />
+    <meta name="site" content="https://blog.52itstyle.com" />
+    <link rel="stylesheet" th:href="@{/iview/iview.css}">
+    <script th:src="@{/libs/jquery-3.2.1.min.js}" type="text/javascript"></script>
+	<script th:src="@{/libs/vue.min.js}" type="text/javascript"></script>
+	<script th:src="@{/layer/layer.js}" type="text/javascript"></script>
+	<script th:src="@{/iview/iview.min.js}" type="text/javascript"></script>
+	<script th:src="@{/common.js}" type="text/javascript"></script>
+    <style type="text/css">
+	[v-cloak] {
+			  display: none;
+			}
+	</style>
+</head>
+<body>
+<div id="app" v-cloak>
+       <div style="margin-bottom: 6px">
+			<template >
+			<i-input placeholder="输入表名称" v-model="table.tableName" style="width: 200px"></i-input>
+			</template>
+			<i-button type="primary"  icon="ios-search" @click="list()" >查询</i-button>
+		</div>
+		
+		<template>
+			<i-table size="small" height="400" border  :content="self" :columns="tableTitle" :data="consultData"></i-table>
+		 	<br>
+			<Page :current="pageNumber" :total="total" :page-size="pageSize"  @on-change="changePage" size="small" show-total></Page>
+		</template>
+</div>
+<script type="text/javascript">
+var vm = new Vue({
+	el : '#app',
+	data : {
+		table :{
+			tableSchema:"",
+			tableName:"",
+			tableComment:""
+		},
+		pageNumber:1,
+		pageSize:20,
+		total:100,
+		tableTitle : [
+			{
+				key : "tableName",
+				title : "名称",
+				width : ""
+			}, 
+			{
+				key : "tableComment",
+				title : "描述",
+				width : ""
+			},
+			{
+				key : "column",
+				title : "列",
+				width : "",
+	        	render : function(h, params){
+					var functionList = [];
+					var see = h('Button', {
+						props : {icon:"ios-search",type : 'primary',size : 'small'},
+						attrs: {id: 'see',title:'查看'}, 
+						style : {width:'',marginLeft:'-10px',marginRight:'-10px',marginBottom:'1px',marginTop:'1px'},
+						on : {
+							click : function() {
+								vm.see(params.row.tableName);
+							}
+						}
+					});
+					var mod = h('Button', {
+						props : {icon:"hammer",type : 'primary',size : 'small'},
+						attrs: {id: 'mod',title:'修改'},
+						style : {width:'',marginLeft:'20px',marginRight:'-10px',marginBottom:'1px',marginTop:'1px'},
+						on : {
+							click : function() {
+								vm.mod(params.row.id);
+							}
+						}
+					});
+					functionList.push(see);
+					functionList.push(mod);
+					// 返回方法集合
+					return h('div', functionList);
+				}
+			}
+		],
+		consultData : [
+
+		]
+	},
+	methods : {
+		list : function() {
+			 var param = {pageNumber:this.pageNumber,pageSize:this.pageSize,tableName:this.table.tableName};
+			 $.ajax({
+				url : '../table/list?_' + $.now(),
+				type : "post",
+				data : param,
+				success : function(result) {
+					vm.consultData = result.msg.content;
+					vm.total = result.msg.totalElements;
+				}
+			});
+		},
+		see: function(tableName){
+			dialogOpen({
+				title: '表详情',
+				url: 'common/columnDel.shtml?tableName='+ tableName,
+				width: '850px',
+				height: '550px',
+				btn: null,
+				scroll : true,
+				success: function(iframeId){
+					//top.frames[iframeId].document.write(vm.msg);
+				},
+			});
+		},
+		mod: function(id){
+			dialogOpen({
+				title: '修改表',
+				url: 'common/tableMod.shtml?id='+ id,
+				width: '300px',
+				height: '250px',
+				scroll : true,
+				success: function(iframeId){
+					//top.frames[iframeId].document.write(vm.msg);
+				},
+				yes: function(iframeId){
+					alert(1);
+				}
+			});
+		},
+	   changePage (a){
+		   this.pageNumber = a;
+		   this.list();
+	   }
+	},
+	created : function() {
+		this.list();
+	}
+});
+</script>
+</body>
+</html>

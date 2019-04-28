@@ -13,7 +13,9 @@ import com.itstyle.mail.entity.Tables;
 
 public interface ITableService {
 
-	public Result listTable(Tables table);
+	public Result listTable(Tables table, int pageNumber, int pageSize);
 
 	public Result addTable(Tables table);
+
+	public Result get(Tables table);
 }

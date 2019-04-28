@@ -43,8 +43,13 @@ public class TableController {
 	private ITableService tableService;
 	
 	@PostMapping("list")
-	public Result list(Tables table) {
-		return tableService.listTable(table);
+	public Result list(Tables table,int pageNumber,int pageSize) {
+		return tableService.listTable(table,pageNumber,pageSize);
+	}
+	
+	@PostMapping("get")
+	public Result get(Tables table) {
+		return tableService.get(table);
 	}
 	
 	@PostMapping("add")

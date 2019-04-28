@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>用户列表 - 科帮网</title>
+    <meta name="author" content="小柒2012" />
+    <meta name="site" content="https://blog.52itstyle.com" />
+    <link rel="stylesheet" th:href="@{/iview/iview.css}">
+    <script th:src="@{/libs/jquery-3.2.1.min.js}" type="text/javascript"></script>
+	<script th:src="@{/libs/vue.min.js}" type="text/javascript"></script>
+	<script th:src="@{/layer/layer.js}" type="text/javascript"></script>
+	<script th:src="@{/iview/iview.min.js}" type="text/javascript"></script>
+	<script th:src="@{/common.js}" type="text/javascript"></script>
+    <style type="text/css">
+	[v-cloak] {
+			  display: none;
+			}
+	</style>
+</head>
+<body>
+<div id="app" v-cloak>
+       <div style="margin-bottom: 6px">
+			<template >
+			<i-input placeholder="输入列名称" v-model="column.columnName" style="width: 200px"></i-input>
+			</template>
+			<i-button type="primary"  icon="ios-search" @click="list()" >查询</i-button>
+		</div>
+		
+		<template>
+			<i-table size="small"  height="400" border  :content="self" :columns="tableTitle" :data="consultData"></i-table>
+		 	<br>
+			<Page :current="pageNumber" :total="total" :page-size="pageSize"  @on-change="changePage" size="small" show-total></Page>
+		</template>
+</div>
+<script type="text/javascript">
+var vm = new Vue({
+	el : '#app',
+	data : {
+		column :{
+			tableName:"",
+			columnName:"",
+			columnType:"",
+			columnComment:"",
+		},
+		pageNumber:1,
+		pageSize:20,
+		total:100,
+		tableTitle : [
+			{
+				key : "tableName",
+				title : "表名",
+				width : "",
+			}, 
+			{
+				key : "columnName",
+				title : "列名",
+				width : ""
+			}, 
+			{
+				key : "columnType",
+				title : "类型",
+				width : ""
+			},
+			{
+				key : "columnComment",
+				title : "描述",
+				width : ""
+			}
+		],
+		consultData : [
+
+		]
+	},
+	methods : {
+		list : function() {
+			var param = {pageNumber:this.pageNumber,pageSize:this.pageSize,columnName:this.column.columnName};
+			 $.ajax({
+				url : '../column/listForPage?_' + $.now(),
+				type : "post",
+				data : param,
+				success : function(result) {
+					vm.consultData = result.msg.content;
+					vm.total = result.msg.totalElements;
+				}
+			});
+		},
+	   changePage (pageNumber){
+			alert(pageNumber)
+		   this.pageNumber = pageNumber;
+		   this.list();
+	   }
+	},
+	created : function() {
+		this.list();
+	}
+
+});
+</script>
+</body>
+</html>

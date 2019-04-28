@@ -35,7 +35,7 @@ public class Columns implements Serializable {
 	/**
 	 * 类型
 	 */
-	private String dataType;
+	private String columnType;
 
 	/**
 	 * 长度
@@ -76,13 +76,13 @@ public class Columns implements Serializable {
 		this.columnName = columnName;
 	}
 
-	@Column(name = "data_type", nullable = false, length = 100)
-	public String getDataType() {
-		return dataType;
+	@Column(name = "column_type", nullable = false, length = 100)
+	public String getColumnType() {
+		return columnType;
 	}
 
-	public void setDataType(String dataType) {
-		this.dataType = dataType;
+	public void setColumnType(String columnType) {
+		this.columnType = columnType;
 	}
 
 	@Column(name = "length")
