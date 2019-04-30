@@ -44,7 +44,7 @@ public class TableController {
 	
 	@PostMapping("list")
 	public Result list(Tables table,int pageNumber,int pageSize) {
-		return tableService.listTable(table,pageNumber,pageSize);
+		return tableService.list(table,pageNumber,pageSize);
 	}
 	
 	@PostMapping("get")
@@ -54,6 +54,11 @@ public class TableController {
 	
 	@PostMapping("add")
 	public Result add(Tables table) {
-		return tableService.addTable(table);
+		return tableService.add(table);
+	}
+	
+	@PostMapping("mod")
+	public Result mod(Tables table) {
+		return tableService.mod(table);
 	}
 }

@@ -23,10 +23,10 @@
 <div id="app" v-cloak>
 	<template>
 	    <i-form v-ref:form-validate :model="formValidate" :rules="ruleValidate" :label-width="80" style="width:'80%'">
-	        <Form-item label="姓名" prop="name">
+	        <Form-item label="表名" prop="tableName">
 	            <i-input v-model="table.tableName" :value.sync="formValidate.tableName" placeholder="请输入姓名"></i-input>
 	        </Form-item>
-	        <Form-item label="介绍" prop="desc">
+	        <Form-item label="描述" prop="tableComment">
 	            <i-input v-model="table.tableComment" :value.sync="formValidate.tableComment" type="textarea" 
 	            	:autosize="{minRows: 2,maxRows: 5}" placeholder="请输入..."></i-input>
 	        </Form-item>
@@ -48,7 +48,7 @@ var vm = new Vue({
         },
         ruleValidate: {
         	tableName: [
-                { required: true, message: '姓名不能为空', trigger: 'blur' }
+                { required: true, message: '表名不能为空', trigger: 'blur' }
             ],
             tableComment: [
                 { required: true, message: '请输入描述', trigger: 'blur' },
@@ -65,8 +65,26 @@ var vm = new Vue({
 				data : this.table,
 				success : function(result) {
 					vm.table = result.msg;
+					vm.formValidate = result.msg;
 				}
 			});
+		},
+		save : function() {
+			vm.$refs['formValidate'].validate((valid) => {
+			    if (valid) {
+			    	$.ajax({
+						url : '../table/mod?_' + $.now(),
+						type : "post",
+						data : this.table,
+						success : function(result) {
+							//alert("修改成功");
+						}
+					});
+			    } else {
+			        console.log('error submit!!');
+			        return false;
+			    }
+			 });
 		},
 		GetQueryString : function(name){
 		     var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");

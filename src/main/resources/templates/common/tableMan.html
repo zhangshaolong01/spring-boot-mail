@@ -38,29 +38,14 @@
 var vm = new Vue({
 	el : '#app',
 	data : {
-		table :{
-			tableSchema:"",
-			tableName:"",
-			tableComment:""
-		},
+		table :{tableSchema:"",tableName:"",tableComment:""},
 		pageNumber:1,
 		pageSize:20,
 		total:100,
 		tableTitle : [
-			{
-				key : "tableName",
-				title : "名称",
-				width : ""
-			}, 
-			{
-				key : "tableComment",
-				title : "描述",
-				width : ""
-			},
-			{
-				key : "column",
-				title : "列",
-				width : "",
+			{key : "tableName",title : "名称",width : ""}, 
+			{key : "tableComment",title : "描述",width : ""},
+			{key : "column",title : "列",width : "",
 	        	render : function(h, params){
 					var functionList = [];
 					var see = h('Button', {
@@ -123,17 +108,19 @@ var vm = new Vue({
 		mod: function(id){
 			dialogOpen({
 				title: '修改表',
-				url: 'common/tableMod.shtml?id='+ id,
+				url: './common/tableMod.shtml?id='+ id,
 				width: '300px',
 				height: '250px',
 				scroll : true,
 				success: function(iframeId){
-					//top.frames[iframeId].document.write(vm.msg);
 				},
-				yes: function(iframeId){
-					alert(1);
+				yes: function(iframeId,index){
+					top.frames[iframeId].vm.save();
+					vm.list();
+					parent.layer.close(index);
 				}
 			});
+			layer.closeAll();
 		},
 	   changePage (a){
 		   this.pageNumber = a;

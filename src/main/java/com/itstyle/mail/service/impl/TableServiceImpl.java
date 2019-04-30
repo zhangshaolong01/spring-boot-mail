@@ -46,7 +46,7 @@ public class TableServiceImpl implements ITableService {
 	private TableRepository tablesRepository;
 
 	@Override
-	public Result listTable(Tables tables, int pageNumber, int pageSize) {
+	public Result list(Tables tables, int pageNumber, int pageSize) {
 		PageRequest pageRequest = new PageRequest(pageNumber-1, pageSize);
 		// 1.使用 Example。
         // 2.使用 ExampleMatcher。
@@ -69,7 +69,7 @@ public class TableServiceImpl implements ITableService {
 	}
 
 	@Override
-	public Result addTable(Tables tables) {
+	public Result add(Tables tables) {
 		tables =  tablesRepository.save(tables);
 		return Result.ok(tables);
 	}
@@ -78,5 +78,11 @@ public class TableServiceImpl implements ITableService {
 	public Result get(Tables tables) {
 		tables =  tablesRepository.findOne(tables.getId());
 		return Result.ok(tables);
+	}
+
+	@Override
+	public Result mod(Tables tables) {
+		int num =  tablesRepository.mod(tables.getId(),tables.getTableComment());
+		return Result.ok(num);
 	}
 }
