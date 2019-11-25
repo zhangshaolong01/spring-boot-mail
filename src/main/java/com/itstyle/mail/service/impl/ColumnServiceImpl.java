@@ -67,6 +67,15 @@ public class ColumnServiceImpl implements IColumnService {
 		return Result.ok(list);
 	}
 	
+	/**
+	 * TODO
+	 * @param column
+	 * @return
+	 * @author:  zhangshaolong
+	 * @methodsName: list
+	 * @time: 2019年10月21日 下午3:26:29
+	 * @see com.itstyle.mail.service.IColumnService#list(com.itstyle.mail.entity.Columns)
+	 */
 	@Override
 	public Result list(Columns column) {
 		Columns query = new Columns();
